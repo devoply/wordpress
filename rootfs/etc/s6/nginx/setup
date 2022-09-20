@@ -1,0 +1,33 @@
+#!/bin/bash
+
+declare -x NGINX_WORKER_PROCESSES
+declare -x NGINX_WORKER_CONNECTIONS
+declare -x NGINX_SENDFILE
+declare -x NGINX_TCP_NOPUSH
+
+[[ -z "${NGINX_WORKER_PROCESSES}" ]] && NGINX_WORKER_PROCESSES="5"
+[[ -z "${NGINX_WORKER_CONNECTIONS}" ]] && NGINX_WORKER_CONNECTIONS="4096"
+[[ -z "${NGINX_SENDFILE}" ]] && NGINX_SENDFILE="on"
+[[ -z "${NGINX_TCP_NOPUSH}" ]] && NGINX_TCP_NOPUSH="on"
+
+/usr/bin/templater -d -p nginx \
+  -o /etc/nginx/nginx.conf \
+  /etc/templates/nginx.conf.tmpl
+
+if [[ $? -ne 0 ]]
+then
+  /bin/s6-svscanctl -t /etc/s6
+fi
+
+/usr/bin/templater -d -p nginx \
+  -o /etc/nginx/host.conf \
+  /etc/templates/host.conf.tmpl
+
+if [[ $? -ne 0 ]]
+then
+  /bin/s6-svscanctl -t /etc/s6
+fi
+
+chown -R nginx:nginx \
+  /DATA/htdocs \
+  /var/lib/nginx

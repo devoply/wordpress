@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ -f ./setup ]
+then
+  source ./setup
+fi
+
+if [ -f ./custom ]
+then
+  source ./custom
+fi
+
+chown -R nginx:nginx /DATA
+
+if [ ! -d /DATA/htdocs ] ; then
+  mkdir -p /DATA/htdocs
+#  chown nginx:nginx /DATA/htdocs
+fi
+
+# start nginx
+mkdir -p /DATA/logs/nginx
+mkdir -p /tmp/nginx
+chown nginx:nginx /tmp/nginx
+chown -R nginx:nginx /DATA
+
+exec /usr/sbin/nginx
+
+pushd /DATA/htocs > /dev/null
+exec /usr/sbin/nginx
+popd > /dev/null

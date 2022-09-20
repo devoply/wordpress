@@ -1,0 +1,52 @@
+[global]
+error_log = /DATA/logs/php-fpm/php-fpm.log
+log_level = {{ envString "LOG_LEVEL" }}
+
+[www]
+user = nginx
+group = nginx
+listen = 127.0.0.1:9000
+listen.owner = nginx
+listen.group = nginx
+pm = ondemand
+
+; Total RAM dedicated to the web server / Max child process size
+pm.max_children = {{ envString "MAX_CHILDREN" }}
+pm.max_requests = {{ envString "MAX_REQUESTS" }}
+pm.process_idle_timeout = {{ envString "PROCESS_IDLE_TIMEOUT" }}
+
+chdir = /DATA/htdocs
+
+
+php_flag[display_errors] = on
+php_admin_value[memory_limit] = 128M
+php_admin_value[upload_max_filesize] = 2G
+php_admin_value[post_max_size] = 2G
+php_admin_value[output_buffering] = 0
+php_admin_value[max_input_time] = 3600
+php_admin_value[openssl.cafile] = /etc/ssl/certs/ca-certificates.crt
+php_admin_value[openssl.capath] = /etc/ssl/certs
+php_admin_value[max_input_nesting_level] = 256
+php_admin_value[max_input_vars] = 10000
+
+; Redirect worker stdout and stderr into main error log. If not set, stdout and
+; stderr will be redirected to /dev/null according to FastCGI specs.
+; Default Value: no
+catch_workers_output = yes
+
+env[HOSTNAME] = $HOSTNAME
+env[PATH] = /usr/local/bin:/usr/bin:/bin
+env[TMP] = /tmp
+env[TMPDIR] = /tmp
+env[TEMP] = /tmp
+
+
+; Database variables passed via -e argument on Docker
+env["DB_HOST"] = "$DB_HOST"
+env["DB_USER"] = "$DB_USER"
+env["DB_PASS"] = "$DB_PASS"
+env["DB_NAME"] = "$DB_NAME"
+
+env[REDIS_DB] = "$REDIS_DB"
+env[REDIS_HOST] = "$REDIS_HOST"
+env[REDIS_PORT] = $REDIS_PORT

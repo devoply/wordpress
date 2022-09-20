@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -f ./setup ]
+then
+  source ./setup
+fi
+
+if [ -f ./custom ]
+then
+  source ./custom
+fi
+
+# start php-fpm
+mkdir -p /DATA/logs/php-fpm
+mkdir -p /DATA/bin
+
+if [ ! -d /DATA/bin ] ; then
+  mkdir /DATA/bin
+  chown nginx:nginx /DATA/bin
+  cp /usr/bin/wp-cli /DATA/bin/wp-cli
+
+  curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  chmod +x wp-cli.phar
+  mv wp-cli.phar /DATA/bin/wp-cli
+fi
+
+# run in the foreground as the nginx user.
+s6-setuidgid 100:101 /usr/sbin/php-fpm81 -F
