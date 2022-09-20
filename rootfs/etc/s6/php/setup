@@ -59,10 +59,11 @@ do
     "/etc/php81/custom.d/${RELATIVENAME}"
 done
 
-chown -R nginx:nginx \
-  /DATA/htocs
+mkdir -p /DATA/htdocs
 
-pushd /DATA/htocs > /dev/null
+chown -R nginx:nginx  /DATA/htdocs
+
+pushd /DATA/htdocs > /dev/null
   if [ -f composer.json ]
   then
     if [ -n "${GITHUB_TOKEN}" ]
@@ -87,7 +88,7 @@ pushd /DATA/htocs > /dev/null
         --no-scripts \
         -n \
         -q \
-        --working-dir /DATA/htocs && break
+        --working-dir /DATA/htdocs && break
 
         n=$(($n+1))
         sleep 3
