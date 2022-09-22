@@ -12,8 +12,8 @@ fi
 
 # start php-fpm
 mkdir -p /DATA/logs/php-fpm
-mkdir -p /DATA/bin
 
+# check if /DATA/bin does not exist
 if [ ! -d /DATA/bin ] ; then
   mkdir /DATA/bin
   chown nginx:nginx /DATA/bin
