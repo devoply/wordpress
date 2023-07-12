@@ -19,9 +19,11 @@ if [ ! -d /DATA/bin ] ; then
   chown nginx:nginx /DATA/bin
   cp /usr/bin/wp /DATA/bin/wp
 
-  curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  cd /DATA/bin && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
   chmod +x wp-cli.phar
   mv wp-cli.phar /DATA/bin/wp
+  chown nginx:nginx /DATA/bin/wp
+
 fi
 
 # run in the foreground as the nginx user.
