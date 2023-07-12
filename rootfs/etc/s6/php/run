@@ -21,8 +21,9 @@ if [ ! -d /DATA/bin ] ; then
 
   cd /DATA/bin && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
   chmod +x wp-cli.phar
-  mv wp-cli.phar /DATA/bin/wp
+  cp wp-cli.phar /DATA/bin/wp
   chown nginx:nginx /DATA/bin/wp
+  chmod +x wp
 
 fi
 
