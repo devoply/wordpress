@@ -11,7 +11,7 @@ LABEL   devoply.type="site" \
         devoply.recommend="redis" \
         devoply.description="WordPress on Nginx and PHP-FPM with WP-CLI." \
         devoply.name="WordPress" \
-        devoply.params="docker run -d --name {container_name} -e VIRTUAL_HOST={virtual_hosts} -v /data/sites/{domain_name}:/DATA etopian/alpine-php8.1-wordpress"
+        devoply.params="docker run -d --name {container_name} -e VIRTUAL_HOST={virtual_hosts} -v /data/sites/{domain_name}:/DATA etopian/alpine-php8.1-wordpress" \
         php.version=8.1
 
 
