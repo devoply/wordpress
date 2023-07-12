@@ -3,7 +3,7 @@
 
 $filepath = '/DATA/htdocs/wp-config.php';
 
-$define = "/** The Database Collate type. Don't change this if in doubt. */";
+$define = "/** The database collate type. Don't change this if in doubt. */";
 
 $ssl_content = <<<'EOF'
 /** DEVOPly Settings */
