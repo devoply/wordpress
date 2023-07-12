@@ -1,17 +1,18 @@
 FROM alpine:latest
 MAINTAINER Etopian Inc. <contact@etopian.com>
 
+
 LABEL   devoply.type="site" \
         devoply.cms="wordpress" \
         devoply.framework="wordpress" \
         devoply.language.name="php" \
         devoply.language.version="8.1" \
-        devoply.require="mariadb etopian/nginx-proxy" \
+        devoply.require="mariadb nginxproxy/acme-companion nginxproxy/acme-companion" \
         devoply.recommend="redis" \
         devoply.description="WordPress on Nginx and PHP-FPM with WP-CLI." \
         devoply.name="WordPress" \
         devoply.params="docker run -d --name {container_name} -e VIRTUAL_HOST={virtual_hosts} -v /data/sites/{domain_name}:/DATA etopian/alpine-php8.1-wordpress"
-
+        php.version=8.1
 
 
 RUN  apk update \
