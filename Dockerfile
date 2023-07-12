@@ -73,8 +73,6 @@ RUN  apk update \
         build-base && \
         rm -rf /etc/nginx/* && \
         mkdir /etc/logrotate.docker.d && \
-        ln -s /usr/bin/pecl81 /usr/bin/pecl && \
-        ln -s /usr/bin/php81 /usr/bin/php && \
         pecl81 install redis && \
         apk del build-base && \
         apk del php81-dev && \
