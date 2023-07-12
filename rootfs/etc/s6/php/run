@@ -17,11 +17,11 @@ mkdir -p /DATA/logs/php-fpm
 if [ ! -d /DATA/bin ] ; then
   mkdir /DATA/bin
   chown nginx:nginx /DATA/bin
-  cp /usr/bin/wp-cli /DATA/bin/wp-cli
+  cp /usr/bin/wp /DATA/bin/wp
 
   curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
   chmod +x wp-cli.phar
-  mv wp-cli.phar /DATA/bin/wp-cli
+  mv wp-cli.phar /DATA/bin/wp
 fi
 
 # run in the foreground as the nginx user.

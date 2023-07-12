@@ -113,8 +113,8 @@ RUN sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:10
     chmod +x /usr/bin/wp-config-devoply && \
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/bin/wp-cli && \
-    chown nginx:nginx /usr/bin/wp-cli && \
+    mv wp-cli.phar /usr/bin/wp && \
+    chown nginx:nginx /usr/bin/wp && \
     mkdir -p /DATA/htdocs && \
     mkdir -p /DATA/logs/nginx && \
     mkdir -p /DATA/logs/php-fpm && \
