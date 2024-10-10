@@ -117,7 +117,8 @@ RUN sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:10
     mkdir -p /DATA/htdocs && \
     mkdir -p /DATA/logs/nginx && \
     mkdir -p /DATA/logs/php-fpm && \
-    chown -R nginx:nginx /DATA
+    chown -R nginx:nginx /DATA && \
+    ln -s /usr/bin/php81 /usr/bin/php
 
 EXPOSE 80
 
