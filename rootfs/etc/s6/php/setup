@@ -11,7 +11,7 @@ declare -x PHP_MAX_CHILDREN
 declare -x PHP_MAX_REQUESTS
 declare -x PHP_PROCESS_IDLE_TIMEOUT
 
-[[ -z "${PHP_MEMORY_LIMIT}" ]] && PHP_MEMORY_LIMIT="1G"
+[[ -z "${PHP_MEMORY_LIMIT}" ]] && PHP_MEMORY_LIMIT="256M"
 [[ -z "${PHP_POST_MAX_SIZE}" ]] && PHP_POST_MAX_SIZE="2G"
 [[ -z "${PHP_UPLOAD_MAX_FILESIZE}" ]] && PHP_UPLOAD_MAX_FILESIZE="2G"
 [[ -z "${PHP_MAX_EXECUTION_TIME}" ]] && PHP_MAX_EXECUTION_TIME="3600"
@@ -23,7 +23,7 @@ declare -x PHP_PROCESS_IDLE_TIMEOUT
 [[ -z "${PHP_PROCESS_IDLE_TIMEOUT}" ]] && PHP_PROCESS_IDLE_TIMEOUT="10s"
 
 /usr/bin/templater -d -p php \
-  -o /etc/php81/php.ini \
+  -o /etc/php83/php.ini \
   /etc/templates/php.ini.tmpl
 
 if [[ $? -ne 0 ]]
@@ -32,7 +32,7 @@ then
 fi
 
 /usr/bin/templater -d -p php \
-  -o /etc/php81/php-fpm.conf \
+  -o /etc/php83/php-fpm.conf \
   /etc/templates/php-fpm.conf.tmpl
 
 if [[ $? -ne 0 ]]
@@ -40,23 +40,23 @@ then
   /bin/s6-svscanctl -t /etc/s6
 fi
 
-find /etc/php81/custom.d -mindepth 1 -type d -print0 | while read -d $'\0' TEMPLATE
+find /etc/php83/custom.d -mindepth 1 -type d -print0 | while read -d $'\0' TEMPLATE
 do
-  RELATIVENAME=${TEMPLATE//\/etc\/php81\/custom.d\//}
+  RELATIVENAME=${TEMPLATE//\/etc\/php83\/custom.d\//}
 
-  if [ ! -d "/etc/php81/conf.d/${RELATIVENAME}" ]
+  if [ ! -d "/etc/php83/conf.d/${RELATIVENAME}" ]
   then
-    mkdir "/etc/php81/conf.d/${RELATIVENAME}"
+    mkdir "/etc/php83/conf.d/${RELATIVENAME}"
   fi
 done
 
-find /etc/php81/custom.d -mindepth 1 -type f -print0 | while read -d $'\0' TEMPLATE
+find /etc/php83/custom.d -mindepth 1 -type f -print0 | while read -d $'\0' TEMPLATE
 do
-  RELATIVENAME=${TEMPLATE//\/etc\/php81\/custom.d\//}
+  RELATIVENAME=${TEMPLATE//\/etc\/php83\/custom.d\//}
 
   ln -sf \
-    "/etc/php81/conf.d/${RELATIVENAME}" \
-    "/etc/php81/custom.d/${RELATIVENAME}"
+    "/etc/php83/conf.d/${RELATIVENAME}" \
+    "/etc/php83/custom.d/${RELATIVENAME}"
 done
 
 mkdir -p /DATA/htdocs
