@@ -116,6 +116,8 @@ RUN sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:10
 
 EXPOSE 80
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 CMD curl -fsS http://127.0.0.1/health || exit 1
+
 VOLUME ["/DATA"]
 
 CMD ["/usr/bin/s6-svscan", "/etc/s6"]
