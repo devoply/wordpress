@@ -69,13 +69,13 @@ chown -R 100:101 /data/sites/etopian.com/htdocs
 
 ```bash
 
-sudo docker run -p 80:80 etopian/nginx-proxy
+sudo docker run -p 80:80 devoply/wordpress
 mkdir -p /data/sites/etopian.com/htdocs
 
-sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA etopian/alpine-php-wordpress
+sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA devoply/wordpress
 
 mkdir -p /data/sites/etopian.net/htdocs
-sudo docker run -e VIRTUAL_HOST=etopian.net,www.etopian.net -v /data/sites/etopian.net:/DATA etopian/alpine-php-wordpress
+sudo docker run -e VIRTUAL_HOST=etopian.net,www.etopian.net -v /data/sites/etopian.net:/DATA devoply/wordpress
 ```
 
 Populate /data/sites/etopian.com/htdocs and  /data/sites/etopian.net/htdocs with your WP files. See http://www.wordpressdocker.com if you need help on how to configure your database.
